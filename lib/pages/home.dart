@@ -9,8 +9,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sampleWord = Word.fromJson(sampleWords[0]);
-
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -26,7 +24,7 @@ class HomePage extends StatelessWidget {
                     ),
                 icon: const Icon(Icons.search))
           ]),
-      body: WordBox(word: sampleWord),
+      body: WordGroup(words: sampleWords.map(Word.fromJson).toList()),
     );
   }
 }

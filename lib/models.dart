@@ -7,12 +7,14 @@ class Word {
   });
   Word.fromJson(Map<String, dynamic> json)
       : word = json['word'],
-        phonetic = json['phonetic'],
-        phonetics = (json['phonetics'] as List<Map<String, dynamic>>)
-            .map(Phonetic.fromJson)
+        phonetic = json['phonetic'] ?? '',
+        phonetics = json['phonetics']
+            .cast<Map<String, dynamic>>()
+            .map<Phonetic>(Phonetic.fromJson)
             .toList(),
-        meanings = (json['meanings'] as List<Map<String, dynamic>>)
-            .map(Meaning.fromJson)
+        meanings = json['meanings']
+            .cast<Map<String, dynamic>>()
+            .map<Meaning>(Meaning.fromJson)
             .toList();
 
   String word;
@@ -28,7 +30,7 @@ class Phonetic {
   });
 
   Phonetic.fromJson(Map<String, dynamic> json)
-      : phonetic = json['text'],
+      : phonetic = json['text'] ?? '',
         audio = json['audio'];
 
   String phonetic;
@@ -43,8 +45,8 @@ class Meaning {
 
   Meaning.fromJson(Map<String, dynamic> json)
       : partOfSpeech = json["partOfSpeech"],
-        definitions = (json["definitions"] as List<Map<String, dynamic>>)
-            .map(Definition.fromJson)
+        definitions = (json["definitions"].cast<Map<String, dynamic>>())
+            .map<Definition>(Definition.fromJson)
             .toList();
   String partOfSpeech;
   List<Definition> definitions;

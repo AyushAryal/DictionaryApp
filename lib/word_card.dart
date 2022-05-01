@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'models.dart';
 
+class WordGroup extends StatelessWidget {
+  final List<Word> words;
+  const WordGroup({Key? key, required this.words}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: words.map((x) => WordBox(word: x)).toList(),
+    );
+  }
+}
+
 class WordBox extends StatelessWidget {
   final Word word;
   const WordBox({Key? key, required this.word}) : super(key: key);
@@ -9,15 +21,17 @@ class WordBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: ListView(
+      child: Column(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
+              Expanded(
+                  child: Text(
                 word.word,
                 style: TextStyle(fontSize: 60, color: Colors.red.shade400),
-              ),
+                overflow: TextOverflow.ellipsis,
+              )),
               const SizedBox(width: 20),
               Text(word.phonetic),
             ],
@@ -81,7 +95,7 @@ class Definitionview extends StatelessWidget {
         child: const Text("Synonym"),
       ));
       synonyms.add(const SizedBox(width: 5));
-      synonyms.add(Text(definition.synonyms.join(", ")));
+      synonyms.add(Expanded(child: Text(definition.synonyms.join(", "))));
     }
 
     final antonyms = <Widget>[];
@@ -95,7 +109,7 @@ class Definitionview extends StatelessWidget {
         child: const Text("Antonyms"),
       ));
       antonyms.add(const SizedBox(width: 5));
-      antonyms.add(Text(definition.antonyms.join(", ")));
+      antonyms.add(Expanded(child: Text(definition.antonyms.join(", "))));
     }
 
     final example = <Widget>[];
